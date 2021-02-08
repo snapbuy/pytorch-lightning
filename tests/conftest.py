@@ -75,11 +75,11 @@ def tmpdir_server(tmpdir):
 @pytest.fixture(scope="function", autouse=True)
 def clear_lightning_env_variables():
     """ Runs before every test and deletes all PL specific env variables. """
-    blacklist = [key for key in os.environ.keys() if key.startswith("PL_")]
-    blacklist += [
+    blocklist = [key for key in os.environ.keys() if key.startswith("PL_")]
+    blocklist += [
         "LOCAL_RANK",
         "GLOBAL_RANK",
         "WORLD_SIZE",
     ]
-    for key in blacklist:
+    for key in blocklist:
         os.environ.pop(key, None)
