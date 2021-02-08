@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import os
 import sys
 import threading
 from functools import partial, wraps
@@ -70,3 +70,16 @@ def tmpdir_server(tmpdir):
         server_thread.start()
         yield server.server_address
         server.shutdown()
+
+
+@pytest.fixture(scope="function", autouse=True)
+def clear_lightning_env_variables():
+    """ Runs before every test and deletes all PL specific env variables. """
+    blacklist = [key for key in os.environ.keys() if key.startswith("PL_")]
+    blacklist += [
+        "LOCAL_RANK",
+        "GLOBAL_RANK",
+        "WORLD_SIZE",
+    ]
+    for key in blacklist:
+        os.environ.pop(key, None)
