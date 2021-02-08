@@ -82,5 +82,5 @@ def clear_lightning_env_variables():
         "GLOBAL_RANK",
         "WORLD_SIZE",
     ]
-    for key in blacklist:
+    for key in blocklist:
         os.environ.pop(key, None)
