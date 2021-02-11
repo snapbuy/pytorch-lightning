@@ -1,3 +1,16 @@
+# Copyright The PyTorch Lightning team.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 from unittest.mock import MagicMock
 
 import pytest
@@ -12,6 +25,7 @@ from pytorch_lightning.overrides.data_parallel import (
     unsqueeze_scalar_tensor,
 )
 from pytorch_lightning.trainer.states import RunningStage
+from tests import _SKIPIF_ARGS_NO_GPU
 from tests.helpers import BoringModel
 
 
@@ -132,7 +146,7 @@ def test_python_scalar_to_tensor(inp, expected):
 
 
 @pytest.mark.parametrize("device", [torch.device("cpu"), torch.device("cuda", 0)])
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="test requires GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
 def test_lightning_parallel_module_python_scalar_conversion(device):
     """ Test that LightningParallelModule can convert Python scalars to tensors. """
 

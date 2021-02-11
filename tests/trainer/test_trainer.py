@@ -39,6 +39,7 @@ from pytorch_lightning.trainer.states import TrainerState
 from pytorch_lightning.utilities import _NATIVE_AMP_AVAILABLE
 from pytorch_lightning.utilities.cloud_io import load as pl_load
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
+from tests import _SKIPIF_ARGS_NO_GPU
 from tests.base import EvalModelTemplate
 from tests.helpers import BoringModel, RandomDataset
 
@@ -991,7 +992,7 @@ def test_gradient_clipping(tmpdir):
     trainer.fit(model)
 
 
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="test requires GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
 @pytest.mark.skipif(not _NATIVE_AMP_AVAILABLE, reason="test requires native AMP.")
 def test_gradient_clipping_fp16(tmpdir):
     """
@@ -1385,7 +1386,7 @@ def test_trainer_subclassing():
         }),
     ],
 )
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="test requires GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
 def test_trainer_omegaconf(trainer_params):
     Trainer(**trainer_params)
 

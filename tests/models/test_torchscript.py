@@ -16,6 +16,7 @@ from distutils.version import LooseVersion
 import pytest
 import torch
 
+from tests import _SKIPIF_ARGS_NO_GPU
 from tests.helpers import BoringModel
 from tests.helpers.advanced_models import BasicGAN, ParityModuleRNN
 from tests.helpers.datamodules import TrialMNISTDataModule
@@ -83,7 +84,7 @@ def test_torchscript_input_output_trace():
 
 
 @pytest.mark.parametrize("device", [torch.device("cpu"), torch.device("cuda", 0)])
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="requires GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
 def test_torchscript_device(device):
     """ Test that scripted module is on the correct device. """
     model = BoringModel().to(device)

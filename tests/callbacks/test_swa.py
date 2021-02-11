@@ -23,6 +23,7 @@ from torch.utils.data import DataLoader
 from pytorch_lightning import Trainer
 from pytorch_lightning.utilities import _TORCH_GREATER_EQUAL_1_6
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
+from tests import _SKIPIF_ARGS_NO_GPU
 from tests.helpers import BoringModel, RandomDataset
 
 if _TORCH_GREATER_EQUAL_1_6:
@@ -136,7 +137,7 @@ def test_swa_callback_ddp_cpu(tmpdir):
 
 
 @pytest.mark.skipif(not _TORCH_GREATER_EQUAL_1_6, reason="SWA available from PyTorch 1.6.0")
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="test requires a GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
 def test_swa_callback_1_gpu(tmpdir):
     train_with_swa(tmpdir, gpus=1)
 

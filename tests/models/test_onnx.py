@@ -21,6 +21,7 @@ import torch
 import tests.helpers.pipelines as tpipes
 import tests.helpers.utils as tutils
 from pytorch_lightning import Trainer
+from tests import _SKIPIF_ARGS_NO_GPU
 from tests.helpers import BoringModel
 
 
@@ -37,7 +38,7 @@ def test_model_saves_with_input_sample(tmpdir):
     assert os.path.getsize(file_path) > 4e2
 
 
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="test requires GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
 def test_model_saves_on_gpu(tmpdir):
     """Test that model saves on gpu"""
     model = BoringModel()

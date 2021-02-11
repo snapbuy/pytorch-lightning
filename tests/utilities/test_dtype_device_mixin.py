@@ -17,6 +17,7 @@ import torch.nn as nn
 
 from pytorch_lightning import Callback, Trainer
 from pytorch_lightning.utilities.device_dtype_mixin import DeviceDtypeModuleMixin
+from tests import _SKIPIF_ARGS_NO_GPU
 from tests.base import EvalModelTemplate
 
 
@@ -55,9 +56,8 @@ class DeviceAssertCallback(Callback):
 ])
 @pytest.mark.parametrize(['dst_device'], [
     pytest.param(torch.device('cpu')),
-    pytest.param(torch.device('cuda', 0)),
+    pytest.param(torch.device('cuda', 0), marks=pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)),
 ])
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="test requires GPU machine")
 def test_submodules_device_and_dtype(dst_device, dst_dtype):
     """
     Test that the device and dtype property updates propagate through mixed nesting of regular
@@ -101,7 +101,7 @@ def test_submodules_multi_gpu_ddp_spawn(tmpdir):
     trainer.fit(model)
 
 
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="test requires GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
 def test_gpu_device_includes_index():
     model = TopModule()
 

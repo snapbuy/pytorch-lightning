@@ -21,6 +21,7 @@ import torch
 from pytorch_lightning import Callback, Trainer
 from pytorch_lightning.accelerators.legacy.gpu_accelerator import GPUAccelerator
 from pytorch_lightning.trainer.states import TrainerState
+from tests import _SKIPIF_ARGS_NO_GPU
 from tests.helpers import BoringModel, RandomDataset
 
 
@@ -143,7 +144,7 @@ def test_training_epoch_end_metrics_collection_on_override(tmpdir):
     assert callback.len_outputs == 0
 
 
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="test requires GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
 def test_transfer_batch_hook():
 
     class CustomBatch:

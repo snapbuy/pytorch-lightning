@@ -30,6 +30,7 @@ from pytorch_lightning.accelerators.legacy.horovod_accelerator import HorovodAcc
 from pytorch_lightning.metrics.classification.accuracy import Accuracy
 from pytorch_lightning.trainer.states import TrainerState
 from pytorch_lightning.utilities import _APEX_AVAILABLE, _HOROVOD_AVAILABLE, _NATIVE_AMP_AVAILABLE
+from tests import _SKIPIF_ARGS_NO_GPU
 from tests.helpers import BoringModel
 from tests.helpers.advanced_models import BasicGAN
 
@@ -169,7 +170,7 @@ def test_horovod_amp(tmpdir):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="Horovod is not supported on Windows")
 @pytest.mark.skipif(not _HOROVOD_NCCL_AVAILABLE, reason="test requires Horovod with NCCL support")
-@pytest.mark.skipif(not torch.cuda.is_available(), reason="test requires GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
 def test_horovod_transfer_batch_to_gpu(tmpdir):
 
     class TestTrainingStepModel(BoringModel):
