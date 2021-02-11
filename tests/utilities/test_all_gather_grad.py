@@ -1,3 +1,16 @@
+# Copyright The PyTorch Lightning team.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 import os
 import sys
 
@@ -7,6 +20,7 @@ import torch
 
 from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.utilities import AllGatherGrad
+from tests import _SKIPIF_ARGS_NO_GPUS
 from tests.helpers.boring_model import BoringModel
 
 
@@ -48,7 +62,7 @@ def test_all_gather_ddp():
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="DDP not available on windows")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"
 )

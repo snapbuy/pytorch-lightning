@@ -30,7 +30,7 @@ from pytorch_lightning.accelerators.legacy.horovod_accelerator import HorovodAcc
 from pytorch_lightning.metrics.classification.accuracy import Accuracy
 from pytorch_lightning.trainer.states import TrainerState
 from pytorch_lightning.utilities import _APEX_AVAILABLE, _HOROVOD_AVAILABLE, _NATIVE_AMP_AVAILABLE
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
 from tests.helpers import BoringModel
 from tests.helpers.advanced_models import BasicGAN
 
@@ -102,7 +102,7 @@ def test_horovod_cpu_implicit(tmpdir):
 
 @pytest.mark.skipif(platform.system() == "Windows", reason="Horovod is not supported on Windows")
 @pytest.mark.skipif(not _HOROVOD_NCCL_AVAILABLE, reason="test requires Horovod with NCCL support")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_horovod_multi_gpu(tmpdir):
     """Test Horovod with multi-GPU support."""
     trainer_options = dict(
@@ -123,7 +123,7 @@ def test_horovod_multi_gpu(tmpdir):
 @pytest.mark.skip(reason="Horovod has a problem with broadcast when using apex?")
 @pytest.mark.skipif(platform.system() == "Windows", reason="Horovod is not supported on Windows")
 @pytest.mark.skipif(not _HOROVOD_NCCL_AVAILABLE, reason="test requires Horovod with NCCL support")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(not _APEX_AVAILABLE, reason="test requires apex")
 def test_horovod_apex(tmpdir):
     """Test Horovod with multi-GPU support using apex amp."""
@@ -147,7 +147,7 @@ def test_horovod_apex(tmpdir):
 @pytest.mark.skip(reason="Skip till Horovod fixes integration with Native torch.cuda.amp")
 @pytest.mark.skipif(platform.system() == "Windows", reason="Horovod is not supported on Windows")
 @pytest.mark.skipif(not _HOROVOD_NCCL_AVAILABLE, reason="test requires Horovod with NCCL support")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(not _NATIVE_AMP_AVAILABLE, reason="test requires torch.cuda.amp")
 def test_horovod_amp(tmpdir):
     """Test Horovod with multi-GPU support using native amp."""

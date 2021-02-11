@@ -24,7 +24,7 @@ from pytorch_lightning import LightningDataModule, Trainer
 from pytorch_lightning.accelerators.legacy.gpu_accelerator import GPUAccelerator
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.trainer.states import TrainerState
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
 from tests.helpers import BoringDataModule, BoringModel
 from tests.helpers.datamodules import ClassifDataModule
 from tests.helpers.simple_models import ClassificationModel
@@ -368,7 +368,7 @@ def test_full_loop_single_gpu(tmpdir):
     assert result[0]['test_acc'] > 0.6
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_full_loop_dp(tmpdir):
     set_random_master_port()
 

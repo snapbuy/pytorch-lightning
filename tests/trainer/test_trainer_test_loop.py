@@ -16,10 +16,11 @@ import torch
 
 import pytorch_lightning as pl
 import tests.helpers.utils as tutils
+from tests import _SKIPIF_ARGS_NO_GPUS
 from tests.base import EvalModelTemplate
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_single_gpu_test(tmpdir):
     tutils.set_random_master_port()
 
@@ -47,7 +48,7 @@ def test_single_gpu_test(tmpdir):
     assert torch.all(torch.eq(old_weights, new_weights))
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_ddp_spawn_test(tmpdir):
     tutils.set_random_master_port()
 

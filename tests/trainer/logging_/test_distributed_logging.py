@@ -16,9 +16,9 @@ import platform
 from unittest import mock
 
 import pytest
-import torch
 
 from pytorch_lightning import Trainer
+from tests import _SKIPIF_ARGS_NO_GPUS
 from tests.helpers import BoringModel
 
 
@@ -52,7 +52,7 @@ def test_global_zero_only_logging_ddp_cpu(tmpdir):
     trainer.fit(model)
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_global_zero_only_logging_ddp_spawn(tmpdir):
     """
     Makes sure logging only happens from root zero

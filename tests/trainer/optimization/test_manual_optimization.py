@@ -23,7 +23,7 @@ import torch.nn.functional as F
 
 from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.utilities import _APEX_AVAILABLE
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
 from tests.helpers.boring_model import BoringModel
 
 
@@ -444,7 +444,7 @@ class ManualOptimizationExtendedModel(BoringModel):
         assert self.called["on_train_batch_end"] == 10
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_manual_optimization_and_return_tensor(tmpdir):
     """
     This test verify that in `manual_optimization`
@@ -469,7 +469,7 @@ def test_manual_optimization_and_return_tensor(tmpdir):
     trainer.fit(model)
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_manual_optimization_and_return_detached_tensor(tmpdir):
     """
     This test verify that in `manual_optimization`
@@ -949,7 +949,7 @@ def test_step_with_optimizer_closure_with_different_frequencies(mock_sgd_step, m
 @mock.patch.dict(os.environ, {"PL_DEV_DEBUG": "1"})
 @patch("torch.optim.Adam.step")
 @patch("torch.optim.SGD.step")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"
 )

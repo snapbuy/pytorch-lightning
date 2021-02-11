@@ -26,6 +26,7 @@ from torch.nn import Sequential
 from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.callbacks import ModelPruning
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
+from tests import _SKIPIF_ARGS_NO_GPUS
 from tests.helpers import BoringModel
 
 
@@ -167,7 +168,7 @@ def test_pruning_callback_ddp(tmpdir, use_global_unstructured, parameters_to_pru
     )
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(platform.system() == "Windows", reason="Distributed training is not supported on Windows")
 def test_pruning_callback_ddp_spawn(tmpdir):
     train_with_pruning_callback(tmpdir, use_global_unstructured=True, accelerator="ddp_spawn", gpus=2)

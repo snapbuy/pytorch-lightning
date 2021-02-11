@@ -8,6 +8,7 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import Callback
 from pytorch_lightning.plugins.legacy.native_amp import NativeAMPPlugin
 from pytorch_lightning.utilities import _NATIVE_AMP_AVAILABLE
+from tests import _SKIPIF_ARGS_NO_GPUS
 from tests.helpers.boring_model import BoringModel
 
 
@@ -102,7 +103,7 @@ class GradientUnscaleBoringModel(BoringModel):
 
 
 @pytest.mark.skipif(not _NATIVE_AMP_AVAILABLE, reason="Minimal PT version is set to 1.6")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_amp_gradient_unscale(tmpdir):
     model = GradientUnscaleBoringModel()
 
@@ -131,7 +132,7 @@ class UnscaleAccumulateGradBatchesBoringModel(BoringModel):
 
 
 @pytest.mark.skipif(not _NATIVE_AMP_AVAILABLE, reason="Minimal PT version is set to 1.6")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_amp_gradient_unscale_accumulate_grad_batches(tmpdir):
     model = UnscaleAccumulateGradBatchesBoringModel()
 

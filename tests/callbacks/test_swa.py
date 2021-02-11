@@ -23,7 +23,7 @@ from torch.utils.data import DataLoader
 from pytorch_lightning import Trainer
 from pytorch_lightning.utilities import _TORCH_GREATER_EQUAL_1_6
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
 from tests.helpers import BoringModel, RandomDataset
 
 if _TORCH_GREATER_EQUAL_1_6:
@@ -116,7 +116,7 @@ def train_with_swa(tmpdir, batchnorm=True, accelerator=None, gpus=None, num_proc
 
 
 @pytest.mark.skipif(not _TORCH_GREATER_EQUAL_1_6, reason="SWA available from PyTorch 1.6.0")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"
 )
@@ -125,7 +125,7 @@ def test_swa_callback_ddp(tmpdir):
 
 
 @pytest.mark.skipif(not _TORCH_GREATER_EQUAL_1_6, reason="SWA available from PyTorch 1.6.0")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_swa_callback_ddp_spawn(tmpdir):
     train_with_swa(tmpdir, accelerator="ddp_spawn", gpus=2)
 

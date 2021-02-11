@@ -17,7 +17,7 @@ import torch.nn as nn
 
 from pytorch_lightning import Callback, Trainer
 from pytorch_lightning.utilities.device_dtype_mixin import DeviceDtypeModuleMixin
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
 from tests.base import EvalModelTemplate
 
 
@@ -75,7 +75,7 @@ def test_submodules_device_and_dtype(dst_device, dst_dtype):
     assert model.dtype == model.module.module.dtype == dst_dtype
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_submodules_multi_gpu_dp(tmpdir):
     model = TopModule()
     trainer = Trainer(
@@ -88,7 +88,7 @@ def test_submodules_multi_gpu_dp(tmpdir):
     trainer.fit(model)
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 def test_submodules_multi_gpu_ddp_spawn(tmpdir):
     model = TopModule()
     trainer = Trainer(

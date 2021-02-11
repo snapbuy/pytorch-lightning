@@ -39,7 +39,7 @@ from pytorch_lightning.trainer.states import TrainerState
 from pytorch_lightning.utilities import _NATIVE_AMP_AVAILABLE
 from pytorch_lightning.utilities.cloud_io import load as pl_load
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
 from tests.base import EvalModelTemplate
 from tests.helpers import BoringModel, RandomDataset
 
@@ -1538,7 +1538,7 @@ def test_trainer_predict_cpu(tmpdir, datamodule):
     predict(tmpdir, None, None, 1, datamodule=datamodule)
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"
 )
@@ -1547,7 +1547,7 @@ def test_trainer_predict_dp(tmpdir, num_gpus):
     predict(tmpdir, "dp", num_gpus, None)
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"
 )
@@ -1556,7 +1556,7 @@ def test_trainer_predict_ddp(tmpdir, plugins):
     predict(tmpdir, "ddp", 2, None, plugins=plugins)
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(platform.system() == "Windows", reason="Distributed training is not supported on Windows")
 def test_trainer_predict_ddp_spawn(tmpdir):
     predict(tmpdir, "ddp_spawn", 2, None)
@@ -1594,7 +1594,7 @@ def test_pytorch_profiler_value_errors(pytorch_profiler):
     pytorch_profiler.stop(action)
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="test requires multi-GPU machine")
+@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"
 )
