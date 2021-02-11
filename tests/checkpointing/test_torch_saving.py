@@ -18,7 +18,7 @@ import pytest
 import torch
 
 from pytorch_lightning import Trainer
-from tests import _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPUS
 from tests.helpers import BoringModel
 
 
@@ -58,7 +58,7 @@ def test_model_torch_save_ddp_cpu(tmpdir):
     torch.save(trainer, temp_path)
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_model_torch_save_ddp_cuda(tmpdir):
     """Test to ensure torch save does not fail for model and trainer using gpu ddp."""
     model = BoringModel()

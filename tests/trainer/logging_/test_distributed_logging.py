@@ -18,7 +18,7 @@ from unittest import mock
 import pytest
 
 from pytorch_lightning import Trainer
-from tests import _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPUS
 from tests.helpers import BoringModel
 
 
@@ -52,7 +52,7 @@ def test_global_zero_only_logging_ddp_cpu(tmpdir):
     trainer.fit(model)
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_global_zero_only_logging_ddp_spawn(tmpdir):
     """
     Makes sure logging only happens from root zero

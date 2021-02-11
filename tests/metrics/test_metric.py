@@ -22,7 +22,7 @@ import torch
 from torch import nn
 
 from pytorch_lightning.metrics.metric import Metric, MetricCollection
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_NO_GPU
 
 torch.manual_seed(42)
 
@@ -256,7 +256,7 @@ def test_child_metric_state_dict():
     assert module.state_dict() == expected_state_dict
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_device_and_dtype_transfer(tmpdir):
     metric = DummyMetric1()
     assert metric.x.is_cuda is False
@@ -309,7 +309,7 @@ def test_metric_collection(tmpdir):
     assert isinstance(metric_loaded, MetricCollection)
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_device_and_dtype_transfer_metriccollection(tmpdir):
     m1 = DummyMetric1()
     m2 = DummyMetric2()

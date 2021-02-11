@@ -19,10 +19,10 @@ import torch
 from pytorch_lightning import Trainer
 from pytorch_lightning.tuner.auto_gpu_select import pick_multiple_gpus
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPUS
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 @pytest.mark.parametrize(
     ["auto_select_gpus", "gpus", "expected_error"],
     [
@@ -46,7 +46,7 @@ def test_trainer_with_gpus_options_combination_at_available_gpus_env(auto_select
         Trainer(auto_select_gpus=auto_select_gpus, gpus=gpus)
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 @pytest.mark.parametrize(
     ["nb", "expected_gpu_idxs", "expected_error"],
     [

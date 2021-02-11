@@ -24,7 +24,7 @@ from pytorch_lightning import LightningDataModule, Trainer
 from pytorch_lightning.accelerators.legacy.gpu_accelerator import GPUAccelerator
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.trainer.states import TrainerState
-from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
 from tests.helpers import BoringDataModule, BoringModel
 from tests.helpers.datamodules import ClassifDataModule
 from tests.helpers.simple_models import ClassificationModel
@@ -343,7 +343,7 @@ def test_trainer_attached_to_dm(tmpdir):
     assert dm.trainer is not None
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_full_loop_single_gpu(tmpdir):
     reset_seed()
 
@@ -368,7 +368,7 @@ def test_full_loop_single_gpu(tmpdir):
     assert result[0]['test_acc'] > 0.6
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_full_loop_dp(tmpdir):
     set_random_master_port()
 
@@ -416,7 +416,7 @@ def test_full_loop_dp(tmpdir):
     assert result[0]['test_acc'] > 0.6
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_dm_transfer_batch_to_device(tmpdir):
 
     class CustomBatch:

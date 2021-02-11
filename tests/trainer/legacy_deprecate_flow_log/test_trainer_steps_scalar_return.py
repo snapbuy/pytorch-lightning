@@ -21,7 +21,7 @@ import pytest
 import torch
 
 from pytorch_lightning import Trainer
-from tests import _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPUS
 from tests.helpers import BoringModel
 from tests.helpers.deterministic_model import DeterministicModel
 
@@ -212,7 +212,7 @@ class DPPReduceMeanPbarModel(BoringModel):
 
 
 @mock.patch.dict(os.environ, {"PL_DEV_DEBUG": "1"})
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_dpp_reduce_mean_pbar(tmpdir):
 
     model = DPPReduceMeanPbarModel()

@@ -20,9 +20,9 @@ from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 
 import tests.helpers.utils as tutils
 from pytorch_lightning import Trainer
-from pytorch_lightning.utilities import _NATIVE_AMP_AVAILABLE, AMPType
+from pytorch_lightning.utilities import AMPType
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_NO_AMP, _SKIPIF_NO_GPU
 from tests.base import EvalModelTemplate
 from tests.helpers.datamodules import MNISTDataModule
 
@@ -217,7 +217,7 @@ def test_trainer_reset_correctly(tmpdir):
             f'Attribute {key} was not reset correctly after learning rate finder'
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 @pytest.mark.parametrize('scale_arg', ['power', 'binsearch', True])
 def test_auto_scale_batch_size_trainer_arg(tmpdir, scale_arg):
     """ Test possible values for 'batch size auto scaling' Trainer argument. """
@@ -239,7 +239,7 @@ def test_auto_scale_batch_size_trainer_arg(tmpdir, scale_arg):
     assert not os.path.exists(tmpdir / 'scale_batch_size_temp_model.ckpt')
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 @pytest.mark.parametrize('use_hparams', [True, False])
 def test_auto_scale_batch_size_set_model_attribute(tmpdir, use_hparams):
     """ Test that new batch size gets written to the correct hyperparameter attribute. """
@@ -335,8 +335,7 @@ def test_error_on_dataloader_passed_to_fit(tmpdir):
         trainer.tune(model, **fit_options)
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
-@pytest.mark.skipif(not _NATIVE_AMP_AVAILABLE, reason="test requires native AMP.")
+@pytest.mark.skipif(**(_SKIPIF_NO_GPU + _SKIPIF_NO_AMP))
 def test_auto_scale_batch_size_with_amp(tmpdir):
     model = EvalModelTemplate()
     batch_size_before = model.batch_size

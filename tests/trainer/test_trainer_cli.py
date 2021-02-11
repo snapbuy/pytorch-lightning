@@ -22,7 +22,7 @@ import pytest
 import tests.helpers.utils as tutils
 from pytorch_lightning import Trainer
 from pytorch_lightning.utilities import argparse
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_NO_GPU
 
 
 @mock.patch('argparse.ArgumentParser.parse_args')
@@ -166,7 +166,7 @@ def test_argparse_args_parsing(cli_args, expected):
     pytest.param('--gpus 1', [0]),
     pytest.param('--gpus 0,', [0]),
 ])
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_argparse_args_parsing_gpus(cli_args, expected_gpu):
     """Test multi type argument with bool."""
     cli_args = cli_args.split(' ') if cli_args else []

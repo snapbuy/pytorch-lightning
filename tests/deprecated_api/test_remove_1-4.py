@@ -25,7 +25,7 @@ from pytorch_lightning.overrides.data_parallel import (
 )
 from pytorch_lightning.overrides.distributed import LightningDistributedModule
 from pytorch_lightning.plugins.legacy.ddp_plugin import DDPPlugin
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_NO_GPU
 from tests.deprecated_api import _soft_unimport_module
 from tests.helpers import BoringModel
 
@@ -164,7 +164,7 @@ class CustomDDPPlugin(DDPPlugin):
         return model
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 @pytest.mark.skipif(sys.platform == "win32", reason="DDP not available on windows")
 def test_v1_4_0_deprecated_lightning_distributed_data_parallel(tmpdir):
     model = BoringModel()
@@ -178,7 +178,7 @@ def test_v1_4_0_deprecated_lightning_distributed_data_parallel(tmpdir):
     trainer.fit(model)
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_v1_4_0_deprecated_lightning_data_parallel():
     model = BoringModel()
     with pytest.deprecated_call(match="`LightningDataParallel` is deprecated since v1.2 and will be removed in v1.4."):

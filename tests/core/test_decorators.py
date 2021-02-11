@@ -15,15 +15,15 @@ import pytest
 import torch
 
 from pytorch_lightning.core.decorators import auto_move_data
-from tests import _SKIPIF_ARGS_NO_GPU
+from tests import _SKIPIF_NO_GPU
 from tests.helpers import BoringModel
 
 
 @pytest.mark.parametrize(['src_device', 'dest_device'], [
     pytest.param(torch.device('cpu'), torch.device('cpu')),
-    pytest.param(torch.device('cpu', 0), torch.device('cuda', 0), marks=pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)),
-    pytest.param(torch.device('cuda', 0), torch.device('cpu'), marks=pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)),
-    pytest.param(torch.device('cuda', 0), torch.device('cuda', 0), marks=pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)),
+    pytest.param(torch.device('cpu', 0), torch.device('cuda', 0), marks=pytest.mark.skipif(**_SKIPIF_NO_GPU)),
+    pytest.param(torch.device('cuda', 0), torch.device('cpu'), marks=pytest.mark.skipif(**_SKIPIF_NO_GPU)),
+    pytest.param(torch.device('cuda', 0), torch.device('cuda', 0), marks=pytest.mark.skipif(**_SKIPIF_NO_GPU)),
 ])
 def test_auto_move_data(src_device, dest_device):
     """ Test that the decorator moves the data to the device the model is on. """

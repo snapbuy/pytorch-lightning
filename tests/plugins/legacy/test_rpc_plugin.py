@@ -9,7 +9,7 @@ from pytorch_lightning import LightningModule, Trainer
 from pytorch_lightning.callbacks import Callback
 from pytorch_lightning.plugins.legacy.rpc_plugin import RPCPlugin
 from pytorch_lightning.utilities import _RPC_AVAILABLE
-from tests import _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import BoringModel
 
 
@@ -89,7 +89,7 @@ class CustomRPCPlugin(RPCPlugin):
         return
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 @pytest.mark.skipif(not _RPC_AVAILABLE, reason="RPC is not available")
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"

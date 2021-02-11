@@ -21,7 +21,7 @@ import torch
 import tests.helpers.pipelines as tpipes
 import tests.helpers.utils as tutils
 from pytorch_lightning import Trainer
-from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
 from tests.helpers import BoringModel
 
 
@@ -38,7 +38,7 @@ def test_model_saves_with_input_sample(tmpdir):
     assert os.path.getsize(file_path) > 4e2
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_model_saves_on_gpu(tmpdir):
     """Test that model saves on gpu"""
     model = BoringModel()
@@ -77,7 +77,7 @@ def test_model_saves_with_example_input_array(tmpdir):
     assert os.path.getsize(file_path) > 4e2
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_model_saves_on_multi_gpu(tmpdir):
     """Test that ONNX model saves on a distributed backend"""
     tutils.set_random_master_port()

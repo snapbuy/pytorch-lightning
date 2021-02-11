@@ -20,16 +20,16 @@ from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.callbacks import QuantizationAwareTraining
 from pytorch_lightning.metrics.functional.mean_relative_error import mean_relative_error
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_ARGS_NO_PT_QUANT, _SKIPIF_ARGS_PT_LE_1_4
+from tests import _SKIPIF_NO_PT_QUANT, _SKIPIF_PT_LE_1_4
 from tests.helpers.datamodules import RegressDataModule
 from tests.helpers.simple_models import RegressionModel
 
 
 @pytest.mark.parametrize(
-    "observe", ['average', pytest.param('histogram', marks=pytest.mark.skipif(**_SKIPIF_ARGS_PT_LE_1_4))]
+    "observe", ['average', pytest.param('histogram', marks=pytest.mark.skipif(**_SKIPIF_PT_LE_1_4))]
 )
 @pytest.mark.parametrize("fuse", [True, False])
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_PT_QUANT)
+@pytest.mark.skipif(**_SKIPIF_NO_PT_QUANT)
 def test_quantization(tmpdir, observe, fuse):
     """Parity test for quant model"""
     seed_everything(42)
@@ -64,7 +64,7 @@ def test_quantization(tmpdir, observe, fuse):
     assert torch.allclose(org_score, quant_score, atol=0.45)
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_PT_QUANT)
+@pytest.mark.skipif(**_SKIPIF_NO_PT_QUANT)
 def test_quantize_torchscript(tmpdir):
     """Test converting to torchscipt """
     dm = RegressDataModule()
@@ -118,7 +118,7 @@ def custom_trigger_last(trainer):
         (custom_trigger_last, 2),
     ]
 )
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_PT_QUANT)
+@pytest.mark.skipif(**_SKIPIF_NO_PT_QUANT)
 def test_quantization_triggers(tmpdir, trigger_fn, expected_count):
     """Test  how many times the quant is called"""
     dm = RegressDataModule()

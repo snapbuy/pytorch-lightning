@@ -7,12 +7,11 @@ import torch
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import Callback
 from pytorch_lightning.plugins.legacy.native_amp import NativeAMPPlugin
-from pytorch_lightning.utilities import _NATIVE_AMP_AVAILABLE
-from tests import _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_AMP, _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import BoringModel
 
 
-@pytest.mark.skipif(not _NATIVE_AMP_AVAILABLE, reason="Minimal PT version is set to 1.6")
+@pytest.mark.skipif(**_SKIPIF_NO_AMP)
 @mock.patch.dict(
     os.environ, {
         "CUDA_VISIBLE_DEVICES": "0,1",
@@ -51,7 +50,7 @@ def test_amp_choice_default_ddp_cpu(tmpdir, ddp_backend, gpus, num_processes):
         trainer.fit(model)
 
 
-@pytest.mark.skipif(not _NATIVE_AMP_AVAILABLE, reason="Minimal PT version is set to 1.6")
+@pytest.mark.skipif(**_SKIPIF_NO_AMP)
 @mock.patch.dict(
     os.environ, {
         "CUDA_VISIBLE_DEVICES": "0,1",
@@ -102,8 +101,7 @@ class GradientUnscaleBoringModel(BoringModel):
             assert norm.item() < 15.
 
 
-@pytest.mark.skipif(not _NATIVE_AMP_AVAILABLE, reason="Minimal PT version is set to 1.6")
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**(_SKIPIF_NO_GPUS + _SKIPIF_NO_AMP))
 def test_amp_gradient_unscale(tmpdir):
     model = GradientUnscaleBoringModel()
 
@@ -131,8 +129,7 @@ class UnscaleAccumulateGradBatchesBoringModel(BoringModel):
             assert norm.item() < 15.
 
 
-@pytest.mark.skipif(not _NATIVE_AMP_AVAILABLE, reason="Minimal PT version is set to 1.6")
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**(_SKIPIF_NO_GPUS + _SKIPIF_NO_AMP))
 def test_amp_gradient_unscale_accumulate_grad_batches(tmpdir):
     model = UnscaleAccumulateGradBatchesBoringModel()
 

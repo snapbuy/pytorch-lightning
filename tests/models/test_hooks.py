@@ -21,7 +21,7 @@ import torch
 from pytorch_lightning import Callback, Trainer
 from pytorch_lightning.accelerators.legacy.gpu_accelerator import GPUAccelerator
 from pytorch_lightning.trainer.states import TrainerState
-from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
 from tests.helpers import BoringModel, RandomDataset
 
 
@@ -144,7 +144,7 @@ def test_training_epoch_end_metrics_collection_on_override(tmpdir):
     assert callback.len_outputs == 0
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_transfer_batch_hook():
 
     class CustomBatch:
@@ -179,7 +179,7 @@ def test_transfer_batch_hook():
     assert batch_gpu.samples.device == batch_gpu.targets.device == expected
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"
 )

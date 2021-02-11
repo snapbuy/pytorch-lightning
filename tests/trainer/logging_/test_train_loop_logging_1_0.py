@@ -29,7 +29,7 @@ import pytorch_lightning as pl
 from pytorch_lightning import callbacks, Trainer
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from pytorch_lightning.core.lightning import LightningModule
-from tests import _SKIPIF_ARGS_NO_GPU, _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import BoringModel, RandomDictDataset, RandomDictStringDataset
 from tests.helpers.deterministic_model import DeterministicModel
 
@@ -734,7 +734,7 @@ def test_logging_sync_dist_true_cpu(tmpdir):
     assert trainer.logged_metrics['bar'] == fake_result
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"
 )
@@ -774,7 +774,7 @@ def test_logging_sync_dist_true_ddp(tmpdir):
     assert trainer.logged_metrics['bar'] == 2
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_logging_sync_dist_true_gpu(tmpdir):
     """
     Tests to ensure that the sync_dist flag works with GPU (should just return the original value)
@@ -898,7 +898,7 @@ def test_logging_in_callbacks_with_log_function(tmpdir):
     assert trainer.callback_metrics == expected
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPU)
+@pytest.mark.skipif(**_SKIPIF_NO_GPU)
 def test_metric_are_properly_reduced(tmpdir):
 
     class TestingModel(BoringModel):

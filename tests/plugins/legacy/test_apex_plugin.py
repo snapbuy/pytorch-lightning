@@ -6,11 +6,11 @@ import pytest
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import Callback
 from pytorch_lightning.plugins.legacy.apex import ApexPlugin
-from pytorch_lightning.utilities import _APEX_AVAILABLE
+from tests import _SKIPIF_NO_APEX
 from tests.helpers.boring_model import BoringModel
 
 
-@pytest.mark.skipif(not _APEX_AVAILABLE, reason="test requires apex")
+@pytest.mark.skipif(**_SKIPIF_NO_APEX)
 @mock.patch.dict(
     os.environ, {
         "CUDA_VISIBLE_DEVICES": "0,1",
@@ -49,7 +49,7 @@ def test_amp_choice_default_ddp_cpu(tmpdir, ddp_backend, gpus, num_processes):
         trainer.fit(model)
 
 
-@pytest.mark.skipif(not _APEX_AVAILABLE, reason="test requires apex")
+@pytest.mark.skipif(**_SKIPIF_NO_APEX)
 @mock.patch.dict(
     os.environ, {
         "CUDA_VISIBLE_DEVICES": "0,1",

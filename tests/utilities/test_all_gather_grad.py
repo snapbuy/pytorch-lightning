@@ -20,7 +20,7 @@ import torch
 
 from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.utilities import AllGatherGrad
-from tests import _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import BoringModel
 
 
@@ -62,7 +62,7 @@ def test_all_gather_ddp():
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="DDP not available on windows")
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 @pytest.mark.skipif(
     not os.getenv("PL_RUNNING_SPECIAL_TESTS", '0') == '1', reason="test should be run outside of pytest"
 )

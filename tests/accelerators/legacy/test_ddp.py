@@ -16,7 +16,7 @@ import os
 import pytest
 import torch
 
-from tests import _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPUS
 from tests.accelerators.legacy import ddp_model, DDPLauncher
 from tests.utilities.distributed import call_training_script
 
@@ -24,7 +24,7 @@ from tests.utilities.distributed import call_training_script
 @pytest.mark.parametrize('cli_args', [
     pytest.param('--max_epochs 1 --gpus 2 --accelerator ddp'),
 ])
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_multi_gpu_model_ddp_fit_only(tmpdir, cli_args):
     # call the script
     std, err = call_training_script(ddp_model, cli_args, 'fit', tmpdir, timeout=120)
@@ -40,7 +40,7 @@ def test_multi_gpu_model_ddp_fit_only(tmpdir, cli_args):
 @pytest.mark.parametrize('cli_args', [
     pytest.param('--max_epochs 1 --gpus 2 --accelerator ddp'),
 ])
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_multi_gpu_model_ddp_test_only(tmpdir, cli_args):
     # call the script
     call_training_script(ddp_model, cli_args, 'test', tmpdir)
@@ -56,7 +56,7 @@ def test_multi_gpu_model_ddp_test_only(tmpdir, cli_args):
 @pytest.mark.parametrize('cli_args', [
     pytest.param('--max_epochs 1 --gpus 2 --accelerator ddp'),
 ])
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_multi_gpu_model_ddp_fit_test(tmpdir, cli_args):
     # call the script
     call_training_script(ddp_model, cli_args, 'fit_test', tmpdir, timeout=20)
@@ -83,7 +83,7 @@ def internal_test_cli(tmpdir, args=None):
     return 1
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_cli(tmpdir):
     DDPLauncher.run_from_cmd_line("--max_epochs 1 --gpus 2 --accelerator ddp", internal_test_cli, tmpdir)
     # load the results of the script
@@ -97,7 +97,7 @@ def test_cli(tmpdir):
 # END: test_cli ddp test
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 @DDPLauncher.run(
     "--max_epochs [max_epochs] --gpus 2 --accelerator [accelerator]",
     max_epochs=["1"],

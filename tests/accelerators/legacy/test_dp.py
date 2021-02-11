@@ -19,13 +19,13 @@ import tests.helpers.pipelines as tpipes
 import tests.helpers.utils as tutils
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.core import memory
-from tests import _SKIPIF_ARGS_NO_GPUS
+from tests import _SKIPIF_NO_GPUS
 from tests.base import EvalModelTemplate
 
 PRETEND_N_OF_GPUS = 16
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_multi_gpu_early_stop_dp(tmpdir):
     """Make sure DDP works. with early stopping"""
     tutils.set_random_master_port()
@@ -44,7 +44,7 @@ def test_multi_gpu_early_stop_dp(tmpdir):
     tpipes.run_model_test(trainer_options, model)
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_multi_gpu_model_dp(tmpdir):
     tutils.set_random_master_port()
 
@@ -66,7 +66,7 @@ def test_multi_gpu_model_dp(tmpdir):
     memory.get_memory_profile('min_max')
 
 
-@pytest.mark.skipif(**_SKIPIF_ARGS_NO_GPUS)
+@pytest.mark.skipif(**_SKIPIF_NO_GPUS)
 def test_dp_test(tmpdir):
     tutils.set_random_master_port()
 
