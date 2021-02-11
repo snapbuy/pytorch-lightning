@@ -6,7 +6,7 @@ import pytest
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import Callback
 from pytorch_lightning.plugins.legacy.apex import ApexPlugin
-from tests import _SKIPIF_NO_APEX
+from tests.helpers import _SKIPIF_NO_APEX
 from tests.helpers.boring_model import BoringModel
 
 

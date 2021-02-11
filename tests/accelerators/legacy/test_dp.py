@@ -19,8 +19,8 @@ import tests.helpers.pipelines as tpipes
 import tests.helpers.utils as tutils
 from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.core import memory
-from tests import _SKIPIF_NO_GPUS
 from tests.base import EvalModelTemplate
+from tests.helpers import _SKIPIF_NO_GPUS
 
 PRETEND_N_OF_GPUS = 16
 

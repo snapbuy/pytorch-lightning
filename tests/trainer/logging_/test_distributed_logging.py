@@ -18,8 +18,7 @@ from unittest import mock
 import pytest
 
 from pytorch_lightning import Trainer
-from tests import _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_GPUS, BoringModel
 
 
 class TestModel(BoringModel):

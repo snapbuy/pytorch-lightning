@@ -24,8 +24,7 @@ from pytorch_lightning import Trainer
 from pytorch_lightning.accelerators.legacy.gpu_accelerator import GPUAccelerator
 from pytorch_lightning.utilities import device_parser
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS, BoringModel
 
 PRETEND_N_OF_GPUS = 16
 

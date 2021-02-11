@@ -22,7 +22,7 @@ import torch
 from torch import nn
 
 from pytorch_lightning.metrics.metric import Metric, MetricCollection
-from tests import _SKIPIF_NO_GPU
+from tests.helpers import _SKIPIF_NO_GPU
 
 torch.manual_seed(42)
 

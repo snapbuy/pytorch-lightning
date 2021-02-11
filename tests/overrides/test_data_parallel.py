@@ -25,8 +25,7 @@ from pytorch_lightning.overrides.data_parallel import (
     unsqueeze_scalar_tensor,
 )
 from pytorch_lightning.trainer.states import RunningStage
-from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS, BoringModel
 
 
 @pytest.mark.parametrize("wrapper_class", [

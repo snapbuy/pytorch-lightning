@@ -30,8 +30,7 @@ from pytorch_lightning.accelerators.legacy.horovod_accelerator import HorovodAcc
 from pytorch_lightning.metrics.classification.accuracy import Accuracy
 from pytorch_lightning.trainer.states import TrainerState
 from pytorch_lightning.utilities import _HOROVOD_AVAILABLE
-from tests import _SKIPIF_NO_AMP, _SKIPIF_NO_APEX, _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_AMP, _SKIPIF_NO_APEX, _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS, BoringModel
 from tests.helpers.advanced_models import BasicGAN
 
 if _HOROVOD_AVAILABLE:
@@ -123,7 +122,7 @@ def test_horovod_multi_gpu(tmpdir):
 @pytest.mark.skip(reason="Horovod has a problem with broadcast when using apex?")
 @pytest.mark.skipif(platform.system() == "Windows", reason="Horovod is not supported on Windows")
 @pytest.mark.skipif(not _HOROVOD_NCCL_AVAILABLE, reason="test requires Horovod with NCCL support")
-@pytest.mark.skipif(**(_SKIPIF_NO_GPUS + _SKIPIF_NO_APEX))
+@pytest.mark.skipif(**(_SKIPIF_NO_GPUS | _SKIPIF_NO_APEX))
 def test_horovod_apex(tmpdir):
     """Test Horovod with multi-GPU support using apex amp."""
     trainer_options = dict(
@@ -146,7 +145,7 @@ def test_horovod_apex(tmpdir):
 @pytest.mark.skip(reason="Skip till Horovod fixes integration with Native torch.cuda.amp")
 @pytest.mark.skipif(platform.system() == "Windows", reason="Horovod is not supported on Windows")
 @pytest.mark.skipif(not _HOROVOD_NCCL_AVAILABLE, reason="test requires Horovod with NCCL support")
-@pytest.mark.skipif(**(_SKIPIF_NO_GPUS + _SKIPIF_NO_AMP))
+@pytest.mark.skipif(**(_SKIPIF_NO_GPUS | _SKIPIF_NO_AMP))
 def test_horovod_amp(tmpdir):
     """Test Horovod with multi-GPU support using native amp."""
     trainer_options = dict(

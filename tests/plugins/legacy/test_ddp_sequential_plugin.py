@@ -23,7 +23,7 @@ from pytorch_lightning import LightningModule, Trainer
 from pytorch_lightning.plugins.legacy.ddp_sequential_plugin import DDPSequentialPlugin
 from pytorch_lightning.utilities import _FAIRSCALE_PIPE_AVAILABLE
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_GPUS
+from tests.helpers import _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import RandomDataset
 
 

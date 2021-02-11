@@ -20,8 +20,8 @@ from pytorch_lightning.callbacks import EarlyStopping
 from pytorch_lightning.core import memory
 from pytorch_lightning.trainer import Trainer
 from pytorch_lightning.trainer.states import TrainerState
-from tests import _SKIPIF_NO_GPUS
 from tests.base import EvalModelTemplate
+from tests.helpers import _SKIPIF_NO_GPUS
 
 
 @pytest.mark.skipif(**_SKIPIF_NO_GPUS)

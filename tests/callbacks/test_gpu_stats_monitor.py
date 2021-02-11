@@ -23,8 +23,8 @@ from pytorch_lightning.loggers import CSVLogger
 from pytorch_lightning.loggers.csv_logs import ExperimentWriter
 from pytorch_lightning.trainer.states import TrainerState
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_GPU
 from tests.base import EvalModelTemplate
+from tests.helpers import _SKIPIF_NO_GPU
 
 
 @pytest.mark.skipif(**_SKIPIF_NO_GPU)

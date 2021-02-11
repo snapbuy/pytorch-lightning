@@ -23,8 +23,7 @@ import tests.helpers.utils as tutils
 from pytorch_lightning import Trainer
 from pytorch_lightning.trainer.states import TrainerState
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_APEX, _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_APEX, _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS, BoringModel
 
 
 @pytest.mark.skip(reason='dp + amp not supported currently')  # TODO
@@ -185,7 +184,7 @@ def test_amp_without_apex(tmpdir):
 
 
 @mock.patch.dict(os.environ, {"PL_DEV_DEBUG": "1"})
-@pytest.mark.skipif(**(_SKIPIF_NO_GPU + _SKIPIF_NO_APEX))
+@pytest.mark.skipif(**(_SKIPIF_NO_GPU | _SKIPIF_NO_APEX))
 def test_amp_with_apex(tmpdir):
     """Check calling apex scaling in training."""
 

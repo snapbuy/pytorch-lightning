@@ -21,8 +21,7 @@ import torch
 from pytorch_lightning import Callback, Trainer
 from pytorch_lightning.accelerators.legacy.gpu_accelerator import GPUAccelerator
 from pytorch_lightning.trainer.states import TrainerState
-from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel, RandomDataset
+from tests.helpers import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS, BoringModel, RandomDataset
 
 
 @pytest.mark.parametrize('max_steps', [1, 2, 3])

@@ -17,7 +17,7 @@ import os
 from pytorch_lightning import seed_everything
 from pytorch_lightning.callbacks import ModelCheckpoint
 from pytorch_lightning.loggers import TensorBoardLogger, TestTubeLogger
-from tests import _TEMP_PATH, RANDOM_PORTS
+from tests import _RANDOM_PORTS
 from tests.base.model_template import EvalModelTemplate
 
 
@@ -43,7 +43,7 @@ def get_data_path(expt_logger, path_dir=None):
         if hasattr(expt_logger, 'save_dir') and expt_logger.save_dir:
             path_dir = expt_logger.save_dir
         else:
-            path_dir = _TEMP_PATH
+            raise RuntimeError("Missing `path_dir`")
     path_expt = os.path.join(path_dir, name, 'version_%s' % version)
 
     # try if the new sub-folder exists, typical case for test-tube
@@ -70,7 +70,7 @@ def reset_seed(seed=0):
 
 def set_random_master_port():
     reset_seed()
-    port = RANDOM_PORTS.pop()
+    port = _RANDOM_PORTS.pop()
     os.environ['MASTER_PORT'] = str(port)
 
 

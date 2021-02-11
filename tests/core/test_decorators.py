@@ -15,8 +15,7 @@ import pytest
 import torch
 
 from pytorch_lightning.core.decorators import auto_move_data
-from tests import _SKIPIF_NO_GPU
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_GPU, BoringModel
 
 
 @pytest.mark.parametrize(['src_device', 'dest_device'], [

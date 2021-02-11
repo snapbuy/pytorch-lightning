@@ -7,7 +7,7 @@ import torch
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import Callback
 from pytorch_lightning.plugins.legacy.native_amp import NativeAMPPlugin
-from tests import _SKIPIF_NO_AMP, _SKIPIF_NO_GPUS
+from tests.helpers import _SKIPIF_NO_AMP, _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import BoringModel
 
 
@@ -101,7 +101,7 @@ class GradientUnscaleBoringModel(BoringModel):
             assert norm.item() < 15.
 
 
-@pytest.mark.skipif(**(_SKIPIF_NO_GPUS + _SKIPIF_NO_AMP))
+@pytest.mark.skipif(**(_SKIPIF_NO_GPUS | _SKIPIF_NO_AMP))
 def test_amp_gradient_unscale(tmpdir):
     model = GradientUnscaleBoringModel()
 
@@ -129,7 +129,7 @@ class UnscaleAccumulateGradBatchesBoringModel(BoringModel):
             assert norm.item() < 15.
 
 
-@pytest.mark.skipif(**(_SKIPIF_NO_GPUS + _SKIPIF_NO_AMP))
+@pytest.mark.skipif(**(_SKIPIF_NO_GPUS | _SKIPIF_NO_AMP))
 def test_amp_gradient_unscale_accumulate_grad_batches(tmpdir):
     model = UnscaleAccumulateGradBatchesBoringModel()
 

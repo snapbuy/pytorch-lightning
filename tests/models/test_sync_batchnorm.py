@@ -20,7 +20,7 @@ from pytorch_lightning import LightningModule, seed_everything, Trainer
 from pytorch_lightning.plugins.legacy.ddp_plugin import DDPPlugin
 from pytorch_lightning.trainer.states import TrainerState
 from pytorch_lightning.utilities import FLOAT16_EPSILON
-from tests import _SKIPIF_NO_GPUS
+from tests.helpers import _SKIPIF_NO_GPUS
 from tests.helpers.datamodules import MNISTDataModule
 from tests.helpers.utils import set_random_master_port
 

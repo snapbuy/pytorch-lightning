@@ -22,8 +22,8 @@ import tests.helpers.utils as tutils
 from pytorch_lightning import Trainer
 from pytorch_lightning.utilities import AMPType
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_AMP, _SKIPIF_NO_GPU
 from tests.base import EvalModelTemplate
+from tests.helpers import _SKIPIF_NO_AMP, _SKIPIF_NO_GPU
 from tests.helpers.datamodules import MNISTDataModule
 
 
@@ -335,7 +335,7 @@ def test_error_on_dataloader_passed_to_fit(tmpdir):
         trainer.tune(model, **fit_options)
 
 
-@pytest.mark.skipif(**(_SKIPIF_NO_GPU + _SKIPIF_NO_AMP))
+@pytest.mark.skipif(**(_SKIPIF_NO_GPU | _SKIPIF_NO_AMP))
 def test_auto_scale_batch_size_with_amp(tmpdir):
     model = EvalModelTemplate()
     batch_size_before = model.batch_size

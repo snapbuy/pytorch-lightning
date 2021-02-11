@@ -29,8 +29,8 @@ from pytorch_lightning import Callback, Trainer
 from pytorch_lightning.trainer.states import TrainerState
 from pytorch_lightning.utilities.data import has_iterable_dataset, has_len
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_GPUS
 from tests.base import EvalModelTemplate
+from tests.helpers import _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import BoringModel, RandomDataset
 
 

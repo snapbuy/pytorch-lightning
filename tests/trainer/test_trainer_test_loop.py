@@ -16,8 +16,8 @@ import torch
 
 import pytorch_lightning as pl
 import tests.helpers.utils as tutils
-from tests import _SKIPIF_NO_GPUS
 from tests.base import EvalModelTemplate
+from tests.helpers import _SKIPIF_NO_GPUS
 
 
 @pytest.mark.skipif(**_SKIPIF_NO_GPUS)

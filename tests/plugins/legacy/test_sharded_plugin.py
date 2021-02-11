@@ -23,7 +23,7 @@ from pytorch_lightning.callbacks import Callback
 from pytorch_lightning.plugins.legacy.sharded_native_amp_plugin import ShardedNativeAMPPlugin
 from pytorch_lightning.plugins.legacy.sharded_plugin import _FAIRSCALE_AVAILABLE, DDPShardedPlugin
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_AMP, _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
+from tests.helpers import _SKIPIF_NO_AMP, _SKIPIF_NO_APEX, _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import BoringModel
 
 

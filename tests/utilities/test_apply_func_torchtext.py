@@ -17,7 +17,7 @@ import torchtext
 from torchtext.data.example import Example
 
 from pytorch_lightning.utilities.apply_func import move_data_to_device
-from tests import _SKIPIF_NO_GPU
+from tests.helpers import _SKIPIF_NO_GPU
 
 
 def _get_torchtext_data_iterator(include_lengths=False):

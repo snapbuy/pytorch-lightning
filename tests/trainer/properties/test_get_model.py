@@ -16,8 +16,8 @@ import sys
 import pytest
 
 from pytorch_lightning import Trainer
-from tests import _SKIPIF_NO_GPU
 from tests.accelerators.legacy import DDPLauncher
+from tests.helpers import _SKIPIF_NO_GPU
 from tests.helpers.boring_model import BoringModel
 
 

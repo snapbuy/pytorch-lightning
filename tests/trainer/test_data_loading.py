@@ -19,8 +19,7 @@ from torch.utils.data.sampler import BatchSampler, SequentialSampler
 
 from pytorch_lightning import Trainer
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel, RandomDataset
+from tests.helpers import _SKIPIF_NO_GPUS, BoringModel, RandomDataset
 
 
 class IndexedRandomDataset(RandomDataset):

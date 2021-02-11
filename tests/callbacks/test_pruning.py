@@ -26,8 +26,7 @@ from torch.nn import Sequential
 from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.callbacks import ModelPruning
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_GPUS, BoringModel
 
 
 class TestModel(BoringModel):

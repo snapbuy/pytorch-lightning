@@ -16,8 +16,7 @@ from distutils.version import LooseVersion
 import pytest
 import torch
 
-from tests import _SKIPIF_NO_GPU
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_GPU, BoringModel
 from tests.helpers.advanced_models import BasicGAN, ParityModuleRNN
 from tests.helpers.datamodules import TrialMNISTDataModule
 

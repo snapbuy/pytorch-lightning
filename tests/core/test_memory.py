@@ -18,8 +18,7 @@ import torch.nn as nn
 from pytorch_lightning import LightningModule, Trainer
 from pytorch_lightning.core.memory import ModelSummary, UNKNOWN_SIZE
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
-from tests import _SKIPIF_NO_AMP, _SKIPIF_NO_GPU
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_AMP, _SKIPIF_NO_GPU, BoringModel
 from tests.helpers.advanced_models import ParityModuleRNN
 
 
@@ -291,7 +290,7 @@ def test_empty_model_size(mode):
     assert 0.0 == summary.model_size
 
 
-@pytest.mark.skipif(**(_SKIPIF_NO_GPU + _SKIPIF_NO_AMP))
+@pytest.mark.skipif(**(_SKIPIF_NO_GPU | _SKIPIF_NO_AMP))
 @pytest.mark.parametrize('precision', [16, 32])
 def test_model_size_precision(monkeypatch, tmpdir, precision):
     """ Test model size for half and full precision. """

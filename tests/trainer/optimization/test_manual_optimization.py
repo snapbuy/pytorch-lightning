@@ -22,7 +22,7 @@ import torch.distributed as torch_distrib
 import torch.nn.functional as F
 
 from pytorch_lightning import seed_everything, Trainer
-from tests import _SKIPIF_NO_APEX, _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
+from tests.helpers import _SKIPIF_NO_APEX, _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import BoringModel
 
 
@@ -307,7 +307,7 @@ def test_multiple_optimizers_manual_native_amp(tmpdir):
 
 
 @mock.patch.dict(os.environ, {"PL_DEV_DEBUG": "1"})
-@pytest.mark.skipif(**(_SKIPIF_NO_GPU + _SKIPIF_NO_APEX))
+@pytest.mark.skipif(**(_SKIPIF_NO_GPU | _SKIPIF_NO_APEX))
 def test_multiple_optimizers_manual_apex(tmpdir):
     """
     Tests that only training_step can be used

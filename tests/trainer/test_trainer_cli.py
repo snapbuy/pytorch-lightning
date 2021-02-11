@@ -22,7 +22,7 @@ import pytest
 import tests.helpers.utils as tutils
 from pytorch_lightning import Trainer
 from pytorch_lightning.utilities import argparse
-from tests import _SKIPIF_NO_GPU
+from tests.helpers import _SKIPIF_NO_GPU
 
 
 @mock.patch('argparse.ArgumentParser.parse_args')

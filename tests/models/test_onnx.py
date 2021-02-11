@@ -21,8 +21,7 @@ import torch
 import tests.helpers.pipelines as tpipes
 import tests.helpers.utils as tutils
 from pytorch_lightning import Trainer
-from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS, BoringModel
 
 
 def test_model_saves_with_input_sample(tmpdir):

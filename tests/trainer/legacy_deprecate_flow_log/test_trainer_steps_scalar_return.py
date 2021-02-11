@@ -21,8 +21,7 @@ import pytest
 import torch
 
 from pytorch_lightning import Trainer
-from tests import _SKIPIF_NO_GPUS
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_GPUS, BoringModel
 from tests.helpers.deterministic_model import DeterministicModel
 
 

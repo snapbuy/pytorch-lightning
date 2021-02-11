@@ -16,8 +16,8 @@ import os
 import pytest
 import torch
 
-from tests import _SKIPIF_NO_GPUS
 from tests.accelerators.legacy import ddp_model, DDPLauncher
+from tests.helpers import _SKIPIF_NO_GPUS
 from tests.utilities.distributed import call_training_script
 
 

@@ -25,9 +25,8 @@ from pytorch_lightning.overrides.data_parallel import (
 )
 from pytorch_lightning.overrides.distributed import LightningDistributedModule
 from pytorch_lightning.plugins.legacy.ddp_plugin import DDPPlugin
-from tests import _SKIPIF_NO_GPU
 from tests.deprecated_api import _soft_unimport_module
-from tests.helpers import BoringModel
+from tests.helpers import _SKIPIF_NO_GPU, BoringModel
 
 
 def test_v1_4_0_deprecated_imports():

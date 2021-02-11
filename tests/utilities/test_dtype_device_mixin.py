@@ -17,8 +17,8 @@ import torch.nn as nn
 
 from pytorch_lightning import Callback, Trainer
 from pytorch_lightning.utilities.device_dtype_mixin import DeviceDtypeModuleMixin
-from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
 from tests.base import EvalModelTemplate
+from tests.helpers import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
 
 
 class SubSubModule(DeviceDtypeModuleMixin):

@@ -29,7 +29,7 @@ import pytorch_lightning as pl
 from pytorch_lightning import callbacks, Trainer
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 from pytorch_lightning.core.lightning import LightningModule
-from tests import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
+from tests.helpers import _SKIPIF_NO_GPU, _SKIPIF_NO_GPUS
 from tests.helpers.boring_model import BoringModel, RandomDictDataset, RandomDictStringDataset
 from tests.helpers.deterministic_model import DeterministicModel
 
