@@ -73,14 +73,10 @@ def tmpdir_server(tmpdir):
 
 
 @pytest.fixture(scope="function", autouse=True)
-def clear_lightning_env_variables():
-    """ Runs before every test and deletes all PL specific env variables. """
-    allowlist = ["PL_RUNNING_SPECIAL_TESTS"]
-    blocklist = [key for key in os.environ.keys() if key.startswith("PL_") and key not in allowlist]
-    blocklist += [
-        "LOCAL_RANK",
-        "GLOBAL_RANK",
-        "WORLD_SIZE",
-    ]
-    for key in blocklist:
-        os.environ.pop(key, None)
+def restore_env_variables():
+    """ Ensures that environment variables set during the test do not leak out. """
+    env_backup = os.environ.copy()
+    yield
+    # restore environment as it was before running the test
+    os.environ.clear()
+    os.environ.update(env_backup)
